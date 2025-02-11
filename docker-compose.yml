@@ -1,0 +1,33 @@
+services:
+  app:
+    build: .
+    container_name: server-nest-restful
+    ports:
+      - '3001:3006'
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_PORT=3307
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
+      - DB_DATABASE=nest-restful
+      - PORT=3006
+    networks:
+      - app-network
+
+  db:
+    image: mysql:8
+    container_name: db-nest-restful
+    command: --port=3307
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: nest-restful
+    ports:
+      - '3308:3307'
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
