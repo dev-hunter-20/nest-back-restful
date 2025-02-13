@@ -9,6 +9,7 @@ import {
   Patch,
   Post,
   Res,
+  UseGuards,
   UsePipes,
   ValidationError,
   ValidationPipe,
@@ -17,6 +18,9 @@ import { UsersService } from './users.service';
 import { CreateUsersDto } from './dto/create-users.dto';
 import * as bcrypt from 'bcrypt';
 import { UpdateUserDto } from './dto/update-users.dto';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { User } from '@prisma/client';
+import { CurrentUser } from '../auth/current-user.decorator';
 
 @Controller('users')
 @UsePipes(
@@ -36,7 +40,8 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get()
-  async getUsers(@Res() res) {
+  @UseGuards(JwtAuthGuard)
+  async getUsers(@CurrentUser() user: User, @Res() res) {
     const users = await this.usersService.getUsers();
     return res.json({
       success: true,

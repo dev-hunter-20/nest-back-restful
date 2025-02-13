@@ -17,5 +17,9 @@ export class UpdateUserDto {
 
   @IsOptional()
   @IsString()
+  refreshToken?: string;
+
+  @IsOptional()
+  @IsString()
   updated_at: string;
 }

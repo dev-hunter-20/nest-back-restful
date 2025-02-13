@@ -4,8 +4,9 @@ CREATE TABLE `users` (
     `email` VARCHAR(100) NOT NULL,
     `name` VARCHAR(50) NOT NULL,
     `password` VARCHAR(100) NOT NULL,
-    `created_at` TIMESTAMP NULL,
-    `updated_at` TIMESTAMP NULL,
+    `refreshToken` VARCHAR(255) NULL,
+    `created_at` TIMESTAMP(0) NULL,
+    `updated_at` TIMESTAMP(0) NULL,
 
     UNIQUE INDEX `users_email_key`(`email`),
     PRIMARY KEY (`id`)
